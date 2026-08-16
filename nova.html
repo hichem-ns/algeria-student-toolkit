@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>AST Nova — Student Focus OS</title>
+<style>
+:root{--bg:#f4f6fb;--panel:#fff;--ink:#171923;--muted:#70778a;--line:#e6e8ef;--brand:#5b52e8;--brand2:#8b84ff;--good:#16a673;--shadow:0 14px 40px #1d254012}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font-family:Inter,system-ui,-apple-system,Segoe UI,sans-serif}.shell{display:grid;grid-template-columns:250px 1fr;min-height:100vh}
+.side{background:#10121a;color:white;padding:22px 16px;position:sticky;top:0;height:100vh}.logo{font-size:24px;font-weight:950;padding:8px 10px 25px}.logo i{color:#9b95ff;font-style:normal}.nav{display:grid;gap:7px}.nav button{border:0;background:none;color:#aeb2bf;text-align:right;padding:12px;border-radius:12px;font-weight:750}.nav button.active,.nav button:hover{background:#222531;color:#fff}
+.content{max-width:1250px;width:100%;margin:auto;padding:28px}.top{display:flex;justify-content:space-between;gap:15px;align-items:center;margin-bottom:22px}.kicker{color:var(--brand);font-weight:850;font-size:12px;text-transform:uppercase;letter-spacing:.08em}.title{font-size:32px;font-weight:950;margin:4px 0}.muted{color:var(--muted)}.lang{padding:10px;border:1px solid var(--line);border-radius:10px;background:#fff}
+.page{display:none}.page.active{display:block}.layout{display:grid;grid-template-columns:1.35fr .8fr;gap:18px}.card{background:var(--panel);border:1px solid var(--line);border-radius:20px;padding:22px;box-shadow:var(--shadow)}h2{margin:0 0 14px;font-size:19px}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}.stat{background:#fafaff;border-radius:14px;padding:15px}.stat b{display:block;font-size:25px}.stat span{color:var(--muted);font-size:12px}
+.timer{text-align:center}.modes{display:flex;justify-content:center;gap:7px;flex-wrap:wrap;margin:10px 0 18px}.mode,.btn{border:1px solid var(--line);background:#fff;border-radius:11px;padding:10px 13px;font-weight:800;cursor:pointer}.mode.active,.btn.primary{background:var(--brand);color:#fff;border-color:var(--brand)}.clock{width:270px;height:270px;border-radius:50%;margin:8px auto 20px;background:conic-gradient(var(--brand) var(--progress,0%),#ebebf2 0);display:grid;place-items:center;position:relative}.clock:after{content:"";position:absolute;width:230px;height:230px;border-radius:50%;background:#fff}.digits{position:relative;z-index:1;font-size:52px;font-weight:950;direction:ltr}.controls{display:flex;justify-content:center;gap:8px;flex-wrap:wrap}
+.field{display:grid;gap:8px;margin:12px auto;max-width:470px;text-align:right}.field input,.field select{padding:12px;border:1px solid var(--line);border-radius:11px;background:#fff;outline:0}
+.item{display:flex;align-items:center;gap:12px;padding:13px 0;border-bottom:1px solid var(--line)}.item:last-child{border-bottom:0}.icon{width:42px;height:42px;border-radius:12px;background:#f0efff;display:grid;place-items:center}.grow{flex:1}.bar{height:7px;background:#ececf2;border-radius:9px;overflow:hidden;margin-top:7px}.bar i{display:block;height:100%;background:var(--brand);border-radius:9px}.pill{padding:6px 9px;background:#f2f1ff;color:var(--brand);border-radius:9px;font-size:12px;font-weight:800}
+.tabs{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:15px}.tab{padding:10px 13px;border:1px solid var(--line);border-radius:10px;background:#fff;font-weight:800;cursor:pointer}.tab.active{background:#11131b;color:#fff}
+.board .item{padding:12px 0}.avatar{width:38px;height:38px;border-radius:50%;display:grid;place-items:center;background:#e9e7ff;color:#5048d8;font-weight:900}.rank{width:24px;font-weight:900;color:var(--muted)}
+.toast{position:fixed;bottom:20px;right:20px;background:#11131b;color:#fff;padding:13px 16px;border-radius:12px;display:none}
+@media(max-width:900px){.shell{grid-template-columns:1fr}.side{height:auto;position:static;padding:10px}.logo{padding:5px 8px 10px}.nav{grid-template-columns:repeat(5,1fr)}.nav button{text-align:center;font-size:0}.nav button:before{font-size:18px}.nav button:nth-child(1):before{content:"⌂"}.nav button:nth-child(2):before{content:"⏱"}.nav button:nth-child(3):before{content:"🏆"}.nav button:nth-child(4):before{content:"👥"}.nav button:nth-child(5):before{content:"⚙"}.content{padding:16px}.layout{grid-template-columns:1fr}.clock{width:230px;height:230px}.clock:after{width:194px;height:194px}.digits{font-size:43px}}
+</style>
+</head>
+<body>
+<div class="shell">
+<aside class="side"><div class="logo">AST <i>NOVA</i></div><div class="nav">
+<button class="active" data-page="home">الرئيسية</button><button data-page="focus">Focus</button><button data-page="challenge">التحديات</button><button data-page="room">غرف الدراسة</button><button data-page="settings">الإعدادات</button>
+</div></aside>
+<main class="content">
+<header class="top"><div><div class="kicker" id="kicker">STUDENT FOCUS OS</div><div class="title" id="title">ادرس. ركّز. تقدّم.</div><div class="muted" id="subtitle">كل جلسة لها هدف، وكل هدف له تقدم.</div></div><select class="lang" id="language"><option value="ar">العربية</option><option value="fr">Français</option><option value="en">English</option></select></header>
+
+<section class="page active" id="home"><div class="layout">
+<div class="card"><div style="display:flex;justify-content:space-between;gap:10px;align-items:center"><div><div class="kicker" id="today">اليوم</div><h2 id="next">جلسة التركيز المقترحة</h2></div><button class="btn primary" onclick="openPage('focus')" id="startHome">ابدأ</button></div>
+<div class="item"><div class="icon">📚</div><div class="grow"><b>Algorithm — Sorting</b><div class="muted">50 دقيقة · الامتحان بعد 4 أيام</div></div><span class="pill">50 min</span></div>
+<div class="stats" style="margin-top:16px"><div class="stat"><b id="weekMinutes">0</b><span>دقيقة هذا الأسبوع</span></div><div class="stat"><b id="sessions">0</b><span>جلسات</span></div><div class="stat"><b>7 🔥</b><span>Streak</span></div></div></div>
+<div class="card"><h2>هدف اليوم</h2><div style="font-size:34px;font-weight:950"><span id="todayMinutes">0</span> <span class="muted" style="font-size:14px">/ 180 min</span></div><div class="bar"><i id="goalBar" style="width:0%"></i></div><div class="item"><div class="icon">🎯</div><div class="grow"><b>60 دقيقة دراسة</b><div class="muted">تحدي اليوم</div></div><span id="challengeMini">0/60</span></div></div>
+</div></section>
+
+<section class="page" id="focus"><div class="layout">
+<div class="card timer"><div class="kicker">FOCUS HUB</div><h2>جلسة دراسة</h2><div class="modes"><button class="mode active" onclick="preset(25,this)">25/5</button><button class="mode" onclick="preset(50,this)">50/10</button><button class="mode" onclick="preset(90,this)">90/15</button><button class="mode" onclick="customTime()">Custom</button></div>
+<div class="clock" id="clock"><div class="digits" id="digits">25:00</div></div>
+<div class="field"><input id="subject" placeholder="المادة / Matière / Subject"><input id="topic" placeholder="الدرس أو الهدف / Cours / Topic"></div>
+<div class="controls"><button class="btn primary" id="toggle" onclick="toggleTimer()">ابدأ الجلسة</button><button class="btn" onclick="resetTimer()">إعادة</button></div><p class="muted" id="modeInfo">25 دقيقة تركيز · 5 دقائق راحة</p></div>
+<div><div class="card"><h2>ملخص التركيز</h2><div class="stats"><div class="stat"><b id="focusToday">0</b><span>دقيقة اليوم</span></div><div class="stat"><b id="focusXP">0</b><span>XP</span></div><div class="stat"><b id="focusSessions">0</b><span>Sessions</span></div></div></div>
+<div class="card" style="margin-top:18px"><h2>التحديات الحالية</h2><div class="item"><div class="icon">⏱️</div><div class="grow"><b>60 دقيقة اليوم</b><div class="bar"><i id="bar60" style="width:0%"></i></div></div><span id="txt60">0/60</span></div><div class="item"><div class="icon">📚</div><div class="grow"><b>5 جلسات هذا الأسبوع</b><div class="bar"><i id="bar5" style="width:0%"></i></div></div><span id="txt5">0/5</span></div><div class="item"><div class="icon">🔥</div><div class="grow"><b>7 أيام متتالية</b><div class="bar"><i style="width:86%"></i></div></div><span>6/7</span></div></div></div>
+</div></section>
+
+<section class="page" id="challenge"><div class="layout"><div class="card"><div style="display:flex;justify-content:space-between"><h2>تحديات الدراسة</h2><button class="btn primary" onclick="addChallenge()">+ جديد</button></div>
+<div class="item"><div class="icon">🎯</div><div class="grow"><b>60 دقيقة اليوم</b><div class="muted">+60 XP</div><div class="bar"><i id="c1" style="width:0%"></i></div></div><span id="c1t">0/60m</span></div>
+<div class="item"><div class="icon">📚</div><div class="grow"><b>3 جلسات اليوم</b><div class="muted">+100 XP</div><div class="bar"><i id="c2" style="width:0%"></i></div></div><span id="c2t">0/3</span></div>
+<div class="item"><div class="icon">🏆</div><div class="grow"><b>10 ساعات هذا الأسبوع</b><div class="muted">+300 XP</div><div class="bar"><i id="c3" style="width:0%"></i></div></div><span id="c3t">0/600m</span></div>
+</div><div class="card"><h2>هدف الأسبوع</h2><div style="font-size:36px;font-weight:950" id="weekly">0h 00m</div><div class="muted">من 10 ساعات</div><div class="bar" style="margin-top:10px"><i id="weeklyBar" style="width:0%"></i></div><p class="muted">الجلسات المكتملة تحدث التحديات تلقائيًا.</p></div></div></section>
+
+<section class="page" id="room"><div class="layout"><div class="card"><div style="display:flex;justify-content:space-between"><h2>Study Rooms</h2><button class="btn primary" onclick="createRoom()">إنشاء غرفة</button></div><p class="muted">تنافسوا في وقت الدراسة بدل المنافسة في الكلام 😄</p><div class="item"><div class="icon">👥</div><div class="grow"><b>Algorithm Warriors</b><div class="muted">8 أعضاء · الهدف 50 ساعة</div><div class="bar"><i id="roomBar" style="width:0%"></i></div></div><b id="roomHours">0h</b></div><div class="pill" style="display:inline-block;margin-top:12px">CODE: AST-NOVA</div></div>
+<div class="card board"><h2>Leaderboard</h2><div class="item"><span class="rank">1</span><span class="avatar">A</span><div class="grow"><b>Ahmed</b><div class="muted">8h 20m · 12 sessions</div></div></div><div class="item"><span class="rank">2</span><span class="avatar">H</span><div class="grow"><b>Hichem</b><div class="muted" id="youRow">0h · 0 sessions</div></div></div><div class="item"><span class="rank">3</span><span class="avatar">S</span><div class="grow"><b>Sara</b><div class="muted">6h 30m · 9 sessions</div></div></div></div></div></section>
+
+<section class="page" id="settings"><div class="card"><h2>الإعدادات</h2><div class="field" style="margin:0"><label>اللغة<select id="language2"><option value="ar">العربية</option><option value="fr">Français</option><option value="en">English</option></select></label><label>هدف التركيز اليومي<input type="number" value="180"></label></div></div></section>
+</main></div><div class="toast" id="toast"></div>
+<script>
+const S={minutes:0,sessions:0,xp:0,total:1500,remain:1500,running:false,interval:null,weekly:0};
+function q(id){return document.getElementById(id)}
+function openPage(id){document.querySelectorAll(".page").forEach(p=>p.classList.remove("active"));q(id).classList.add("active");document.querySelectorAll(".nav button").forEach(b=>b.classList.toggle("active",b.dataset.page===id))}
+document.querySelectorAll(".nav button").forEach(b=>b.onclick=()=>openPage(b.dataset.page));
+function render(){let m=Math.floor(S.remain/60),s=S.remain%60;q("digits").textContent=String(m).padStart(2,"0")+":"+String(s).padStart(2,"0");q("clock").style.setProperty("--progress",(100-S.remain/S.total*100)+"%");q("toggle").textContent=S.running?"إيقاف مؤقت":"ابدأ الجلسة";q("todayMinutes").textContent=S.minutes;q("focusToday").textContent=S.minutes;q("focusSessions").textContent=S.sessions;q("sessions").textContent=S.sessions;q("focusXP").textContent=S.xp;q("weekMinutes").textContent=S.weekly;q("challengeMini").textContent=Math.min(S.minutes,60)+"/60";q("bar60").style.width=Math.min(S.minutes/60*100,100)+"%";q("bar5").style.width=Math.min(S.sessions/5*100,100)+"%";q("txt60").textContent=Math.min(S.minutes,60)+"/60";q("txt5").textContent=Math.min(S.sessions,5)+"/5";q("c1").style.width=Math.min(S.minutes/60*100,100)+"%";q("c2").style.width=Math.min(S.sessions/3*100,100)+"%";q("c3").style.width=Math.min(S.weekly/600*100,100)+"%";q("c1t").textContent=Math.min(S.minutes,60)+"/60m";q("c2t").textContent=Math.min(S.sessions,3)+"/3";q("c3t").textContent=Math.min(S.weekly,600)+"/600m";q("weekly").textContent=Math.floor(S.weekly/60)+"h "+String(S.weekly%60).padStart(2,"0")+"m";q("weeklyBar").style.width=Math.min(S.weekly/600*100,100)+"%";q("roomHours").textContent=(S.weekly/60).toFixed(1)+"h";q("roomBar").style.width=Math.min(S.weekly/3000*100,100)+"%";q("youRow").textContent=(S.weekly/60).toFixed(1)+"h · "+S.sessions+" sessions";q("goalBar").style.width=Math.min(S.minutes/180*100,100)+"%"}
+function preset(min,el){document.querySelectorAll(".mode").forEach(x=>x.classList.remove("active"));el.classList.add("active");S.total=S.remain=min*60;S.running=false;clearInterval(S.interval);q("modeInfo").textContent=min+" دقيقة تركيز · "+(min===25?5:min===50?10:15)+" دقائق راحة";render()}
+function customTime(){let x=prompt("مدة التركيز بالدقائق","40");if(x&&+x>0){S.total=S.remain=+x*60;S.running=false;clearInterval(S.interval);render()}}
+function toggleTimer(){if(S.running){S.running=false;clearInterval(S.interval)}else{S.running=true;S.interval=setInterval(()=>{S.remain--;if(S.remain<=0){completeSession();S.remain=S.total}render()},1000)}render()}
+function resetTimer(){S.running=false;clearInterval(S.interval);S.remain=S.total;render()}
+function completeSession(){let mins=Math.round(S.total/60),sub=q("subject").value||"Study",topic=q("topic").value||"Focus";S.minutes+=mins;S.weekly+=mins;S.sessions++;S.xp+=mins;toast("تمت الجلسة: "+sub+" — "+topic+" · +"+mins+" XP")}
+function addChallenge(){let x=prompt("اسم التحدي");if(x)toast("تم إنشاء التحدي: "+x)}
+function createRoom(){let x=prompt("اسم الغرفة");if(x)toast("تم إنشاء غرفة: "+(x||"Study Room"))}
+function toast(x){q("toast").textContent=x;q("toast").style.display="block";setTimeout(()=>q("toast").style.display="none",2200)}
+const tr={
+ar:["STUDENT FOCUS OS","ادرس. ركّز. تقدّم.","كل جلسة لها هدف، وكل هدف له تقدم."],
+fr:["STUDENT FOCUS OS","Étudie. Concentre-toi. Progresse.","Chaque session a un objectif, chaque objectif a une progression."],
+en:["STUDENT FOCUS OS","Study. Focus. Progress.","Every session has a goal, every goal has progress."]};
+function language(v){let a=tr[v];q("kicker").textContent=a[0];q("title").textContent=a[1];q("subtitle").textContent=a[2];document.documentElement.lang=v;document.documentElement.dir=v==="ar"?"rtl":"ltr";q("language").value=v;q("language2").value=v}
+q("language").onchange=e=>language(e.target.value);q("language2").onchange=e=>language(e.target.value);render();
+</script>
+</body></html>
