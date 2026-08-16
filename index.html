@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#0b7a4b">
+<meta name="description" content="Algeria Student Toolkit — calcul de moyennes, Pomodoro, révisions et outils pour étudiants algériens.">
+<title>AST — Algeria Student Toolkit 🇩🇿</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="app-shell">
+<header class="topbar">
+<a class="brand" href="#home"><span class="brand-mark">🇩🇿</span><span>AST</span><small>Algeria Student Toolkit</small></a>
+<nav><a class="active" href="#home">Accueil</a><a href="#calculator">Moyenne</a><a href="#pomodoro">Focus</a><a href="#planner">Planning</a></nav>
+<button id="themeToggle" class="icon-btn" title="Changer le thème">☾</button>
+</header>
+<main id="home">
+<section class="hero">
+<div class="hero-copy"><span class="pill">🎓 Pensé pour le système LMD algérien</span>
+<h1>Ton semestre.<br><em>Maîtrisé.</em></h1>
+<p>Calcule tes modules, organise tes révisions et protège ton temps de concentration — dans un seul cockpit étudiant.</p>
+<div class="hero-actions"><a class="primary" href="#calculator">Calculer ma moyenne</a><a class="ghost" href="#pomodoro">Lancer un focus →</a></div></div>
+<div class="dashboard-preview"><div class="preview-top"><span>TABLEAU DE BORD</span><b>2026</b></div>
+<div class="score-ring"><strong id="heroScore">—</strong><span>Moyenne</span></div>
+<div class="preview-stats"><div><b id="heroSubjects">0</b><span>Matières</span></div><div><b id="heroSessions">0</b><span>Sessions</span></div><div><b id="heroTasks">0</b><span>Tâches</span></div></div></div>
+</section>
+
+<section id="calculator" class="section">
+<div class="section-title"><div><span class="eyebrow">01 · NOTES</span><h2>Calculateur universitaire</h2>
+<p>Calcule chaque module avec <strong>CC/TD/TP + examen</strong>, puis pondère le résultat par son coefficient. Le poids CC/Examen reste configurable selon ta formation.</p></div>
+<div class="mode-switch"><button class="mode active" data-mode="module">Modules</button><button class="mode" data-mode="simple">Notes simples</button></div></div>
+
+<div class="calculator-layout">
+<div class="card calculator-card">
+<div class="calc-toolbar"><div><b id="moduleCount">0 modules</b><span>Ajoute tes matières</span></div><button id="addModule" class="secondary">＋ Ajouter un module</button></div>
+<div class="module-head"><span>Module</span><span>CC / TD / TP</span><span>Examen</span><span>Coef.</span><span></span></div>
+<div id="modules"></div>
+<div class="calc-settings">
+<label>Part contrôle continu <select id="ccWeight"><option value="0.4">40%</option><option value="0.3">30%</option><option value="0.5">50%</option><option value="0.6">60%</option></select></label>
+<label>Arrondi <select id="rounding"><option value="2">2 décimales</option><option value="1">1 décimale</option></select></label>
+</div>
+<button id="calculate" class="primary wide">Calculer le semestre</button>
+</div>
+
+<div class="card result-card"><span class="eyebrow">RÉSULTAT</span><div class="big-score" id="semesterAverage">—</div><span>/ 20</span>
+<div class="status" id="semesterStatus">Ajoute tes notes pour commencer.</div>
+<div class="result-grid"><div><b id="validatedModules">0</b><span>Modules ≥ 10</span></div><div><b id="totalCoef">0</b><span>Coefficient total</span></div><div><b id="credits">0</b><span>Crédits estimés</span></div></div>
+<div class="progress"><span id="progressBar"></span></div>
+<p class="hint">ℹ️ Les règles de calcul peuvent varier selon la faculté. Le poids CC/Examen est donc configurable.</p>
+</div></div>
+<div class="compensation"><div><b>🧠 Comprendre la compensation</b><p>Une moyenne générale ≥ 10 peut valider un semestre selon le règlement de ta formation, même si certains modules sont sous 10. Les règles de rattrapage et de crédits peuvent varier.</p></div><button id="clearModules" class="danger">Réinitialiser</button></div>
+</section>
+
+<section id="pomodoro" class="section dark-section">
+<div class="section-title light"><div><span class="eyebrow">02 · FOCUS</span><h2>Focus Room</h2><p>Un Pomodoro complet : focus, pause courte, pause longue et cycles automatiques.</p></div></div>
+<div class="focus-layout"><div class="timer-card">
+<div class="timer-mode"><button data-time="1500" class="timer-preset active">Focus 25</button><button data-time="300" class="timer-preset">Pause 5</button><button data-time="900" class="timer-preset">Pause 15</button></div>
+<div class="timer-ring"><div><strong id="timer">25:00</strong><span id="timerLabel">Focus</span></div></div>
+<div class="timer-controls"><button id="resetTimer" class="round-btn">↺</button><button id="startTimer" class="play-btn">▶</button><button id="skipTimer" class="round-btn">↠</button></div>
+<label class="auto-cycle"><input type="checkbox" id="autoCycle" checked> Enchaîner automatiquement les cycles</label></div>
+<div class="focus-side"><div class="mini-stat"><span>Sessions terminées</span><b id="sessionCount">0</b></div><div class="mini-stat"><span>Minutes focus aujourd'hui</span><b id="focusMinutes">0</b></div>
+<div class="focus-tip"><span>✦</span><div><b>Rituel de travail</b><p>Choisis une seule tâche avant de lancer le timer. Le but n'est pas d'être occupé, mais d'avancer.</p></div></div></div></div>
+</section>
+
+<section id="planner" class="section">
+<div class="section-title"><div><span class="eyebrow">03 · ORGANISATION</span><h2>Planning du jour</h2><p>Trois priorités. Des tâches concrètes. Zéro chaos.</p></div><button id="clearTasks" class="secondary">Effacer les tâches</button></div>
+<div class="planner-layout"><div class="card"><div class="task-input"><input id="todoInput" placeholder="Ex. Réviser ASD — tableaux et structures"><select id="priority"><option value="high">Haute</option><option value="medium" selected>Moyenne</option><option value="low">Basse</option></select><button id="addTodo" class="primary">Ajouter</button></div>
+<div class="task-filters"><button class="filter active" data-filter="all">Toutes</button><button class="filter" data-filter="todo">À faire</button><button class="filter" data-filter="done">Terminées</button></div><ul id="todoList" class="task-list"></ul></div>
+<div class="card priorities-card"><span class="eyebrow">TOP 3</span><h3>Mes priorités</h3><ol><li><input data-priority="0" placeholder="La tâche qui change la journée"></li><li><input data-priority="1" placeholder="Deuxième priorité"></li><li><input data-priority="2" placeholder="Troisième priorité"></li></ol></div></div>
+</section>
+
+<section id="resources" class="section resources-section"><div class="section-title"><div><span class="eyebrow">04 · RESSOURCES</span><h2>Le coin étudiant</h2></div></div>
+<div class="resource-grid"><a href="https://www.mesrs.dz/" target="_blank" rel="noreferrer"><span>🎓</span><b>MESRS</b><small>Enseignement supérieur</small><strong>↗</strong></a>
+<a href="https://www.orientation-esi.dz/" target="_blank" rel="noreferrer"><span>🧭</span><b>Orientation</b><small>Orientation universitaire</small><strong>↗</strong></a>
+<a href="https://www.campusfrance.org/" target="_blank" rel="noreferrer"><span>🇫🇷</span><b>Campus France</b><small>Étudier en France</small><strong>↗</strong></a></div></section>
+</main>
+<footer><b>AST</b> · Algeria Student Toolkit · Open source · 🇩🇿</footer>
+</div><div id="toast" class="toast"></div><script src="script.js"></script>
+</body></html>
